@@ -1,7 +1,23 @@
 [package]
-name = "rdkafka-rust"
+name = "rdkafka"
 version = "0.1.0"
-authors = ["kalmanb <kalman@movio.co>"]
+authors = ["Kalman Bekesi <kalmanbekesi@gmail.com>"]
+description = "POC"
+repository = "https://github.com/kalmanb/rdkafka-rust"
+readme = "README.md"
+license = "MIT"
 
 [dependencies]
 libc = "0.2.0"
+
+[lib]
+name = "rdkafka"
+
+# build = "build.rs"
+# exclude = [
+#  "scripts/*"
+# ]
+
+# [build-dependencies]
+# gcc = "0.3.21"
+
