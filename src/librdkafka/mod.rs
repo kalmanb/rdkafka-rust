@@ -94,6 +94,9 @@ pub type rd_kafka_topic_t = rd_kafka_topic_s;
 #[repr(C)]
 #[derive(Copy, Clone)]
 #[derive(Debug)]
+// see  struct rd_kafka_itopic_s
+// Will lookup to see if the topic has already been created, if so it will
+// return it, otherwise will create a new client topic
 struct rd_kafka_topic_s {
     rkt_partition_cnt: int32_t,
     rkt_refcnt: c_int,

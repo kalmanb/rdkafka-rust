@@ -1,13 +1,21 @@
 
 extern crate rdkafka;
-use rdkafka::producer::{Producer, ProducerBuilder};
+use rdkafka::producer::{Producer, ProducerConfig, Record};
 
 
 fn main() {
-    let producer = ProducerBuilder::new()
-        .hosts(vec!["localhost:9042".to_string()])
+    let config = ProducerConfig::new("test-topic".to_string(), vec!["localhost:9042".to_string()])
+        .ack_timeout_seconds(23)
         .build();
 
-    let data = "test".to_string();
-    producer.send(data);
+    println!("{:?}", config);
+
+    let producer = Producer::new(config);
+
+    let record = Record {
+        key: "key".to_string(),
+        payload: "data".to_string(),
+    };
+
+    producer.send(record);
 }
