@@ -2,11 +2,11 @@ use std;
 
 #[derive(Debug)]
 pub struct Producer {
-    pub config: ProducerConfig,
+    pub config: TopicConfig,
 }
 
 impl Producer {
-    pub fn new(config: ProducerConfig) -> Producer {
+    pub fn new(config: TopicConfig) -> Producer {
         Producer { config: config }
     }
 
@@ -19,16 +19,16 @@ impl Producer {
 }
 
 #[derive(Debug)]
-pub struct ProducerConfig {
+pub struct KafkaConfig {
     topic_name: String,
     brokers: Vec<String>,
     ack_timeout_seconds: u32, /* .topic_name
                                * .topic_partitioner */
 }
 // TODO - might want to use a builder to keep the data safe?
-impl ProducerConfig {
+impl KafkaConfig {
     pub fn new(topic_name: String, brokers: Vec<String>) -> Self {
-        ProducerConfig {
+        KafkaConfig {
             topic_name: topic_name,
             brokers: brokers,
             ack_timeout_seconds: 10, /* Default to 10 seconds
@@ -39,12 +39,23 @@ impl ProducerConfig {
         self.ack_timeout_seconds = ack_timeout_seconds;
         self
     }
-    pub fn build(self) -> ProducerConfig {
-        ProducerConfig {
+    pub fn build(self) -> KafkaConfig {
+        KafkaConfig {
             topic_name: self.topic_name,
             brokers: self.brokers,
             ack_timeout_seconds: self.ack_timeout_seconds, // .topic_partitioner
         }
+    }
+}
+
+#[derive(Debug)]
+pub struct TopicConfig {
+    pub config: KafkaConfig,
+}
+
+impl TopicConfig {
+    pub fn new(config: KafkaConfig) -> TopicConfig {
+        TopicConfig { config: config }
     }
 }
 
