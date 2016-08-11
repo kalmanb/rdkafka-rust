@@ -20,5 +20,8 @@ fn main() {
         payload: "data".to_string(),
     };
 
-    producer.send(record);
+    match producer.send(record) {
+        Ok(_) => println!("Sent!"),
+        Err(err) => println!("Error: {}", err),
+    }
 }

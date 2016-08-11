@@ -1,4 +1,5 @@
-#[allow(non_camel_case_types)]
+#![allow(non_camel_case_types)]
+
 use libc::{c_char, c_int, c_void, int32_t, size_t};
 pub mod errors;
 use self::errors::rd_kafka_resp_err_t;
@@ -98,7 +99,7 @@ pub type rd_kafka_topic_t = rd_kafka_topic_s;
 // see  struct rd_kafka_itopic_s
 // Will lookup to see if the topic has already been created, if so it will
 // return it, otherwise will create a new client topic
-struct rd_kafka_topic_s {
+pub struct rd_kafka_topic_s {
     rkt_partition_cnt: int32_t,
     rkt_refcnt: c_int,
 }
@@ -107,14 +108,15 @@ pub type rd_kafka_t = rd_kafka_s;
 #[repr(C)]
 #[derive(Copy, Clone)]
 #[derive(Debug)]
-struct rd_kafka_s {
+pub struct rd_kafka_s {
+	  rk_conf: rd_kafka_conf_t,
 }
 
 pub type rd_kafka_topic_conf_t = rd_kafka_topic_conf_s;
 #[repr(C)]
 #[derive(Copy, Clone)]
 #[derive(Debug)]
-struct rd_kafka_topic_conf_s {
+pub struct rd_kafka_topic_conf_s {
     max_msg_size: c_int,
     recv_max_msg_size: c_int,
     max_inflight: c_int,
@@ -131,7 +133,7 @@ pub type rd_kafka_conf_t = rd_kafka_conf_s;
 #[repr(C)]
 #[derive(Copy, Clone)]
 #[derive(Debug)]
-struct rd_kafka_conf_s {
+pub struct rd_kafka_conf_s {
     max_msg_size: c_int,
     recv_max_msg_size: c_int,
     max_inflight: c_int,
@@ -191,7 +193,7 @@ pub type rd_kafkap_str_t = rd_kafkap_str_s;
 #[repr(C)]
 #[derive(Copy, Clone)]
 #[derive(Debug)]
-struct rd_kafkap_str_s {
+pub struct rd_kafkap_str_s {
     // convenience header (aligned access, host endian)
     len: c_int, // Kafka string length (-1=NULL, 0=empty, >0=string)
     str: *const c_char, /* points into data[] or other memory,
@@ -201,7 +203,7 @@ struct rd_kafkap_str_s {
 #[repr(C)]
 #[derive(Copy, Clone)]
 #[derive(Debug)]
-enum rd_kafka_secproto_t {
+pub enum rd_kafka_secproto_t {
     RD_KAFKA_PROTO_PLAINTEXT,
     RD_KAFKA_PROTO_SSL,
     RD_KAFKA_PROTO_SASL_PLAINTEXT,
