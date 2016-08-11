@@ -10,11 +10,11 @@ impl Producer {
         Producer { config: config }
     }
 
-    pub fn send<T>(&self, record: Record<T>) -> Result<(), String>
+    pub fn send<T>(&self, record: Record<T>) -> Result<Record<T>, String>
         where T: std::fmt::Debug
     {
         println!("sending data {:?}", record);
-        Ok(())
+        Ok(record)
     }
 }
 
@@ -25,10 +25,21 @@ pub struct KafkaConfig {
     ack_timeout_seconds: u32, /* .topic_name
                                * .topic_partitioner */
 }
+impl Drop for KafkaConfig {
+    fn drop(&mut self) {
+        debug!("Cleaning up KafkaConfig");
+    }
+}
+pub struct KafkaConfigBuilder {
+    topic_name: String,
+    brokers: Vec<String>,
+    ack_timeout_seconds: u32, /* .topic_name
+                               * .topic_partitioner */
+}
 // TODO - might want to use a builder to keep the data safe?
-impl KafkaConfig {
+impl KafkaConfigBuilder {
     pub fn new(topic_name: String, brokers: Vec<String>) -> Self {
-        KafkaConfig {
+        KafkaConfigBuilder {
             topic_name: topic_name,
             brokers: brokers,
             ack_timeout_seconds: 10, /* Default to 10 seconds
@@ -58,6 +69,11 @@ impl TopicConfig {
         TopicConfig { config: config }
     }
 }
+impl Drop for TopicConfig {
+    fn drop(&mut self) {
+        debug!("Cleaning up TopicConfig");
+    }
+}
 
 #[derive(Debug)]
 pub struct Record<T>
@@ -67,10 +83,5 @@ pub struct Record<T>
     pub payload: T,
 }
 
-
-// enum Acks {
-//     // All,
-//     // num: int,
-// }
 
 // trait Partitioner {}

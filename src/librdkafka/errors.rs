@@ -1,7 +1,8 @@
-
+#[allow(non_camel_case_types)]
 #[derive(Copy, Clone)]
 #[repr(i32)]
 #[derive(Debug)]
+
 pub enum rd_kafka_resp_err_t {
     // Internal errors to rdkafka:
     /** Begin internal error codes */

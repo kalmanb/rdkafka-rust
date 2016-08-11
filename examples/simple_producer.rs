@@ -1,11 +1,11 @@
 extern crate rdkafka;
-use rdkafka::producer::{KafkaConfig, Producer, Record, TopicConfig};
+use rdkafka::producer::{KafkaConfigBuilder, Producer, Record, TopicConfig};
 
 fn main() {
     let topic_name = "test-topic".to_string();
     let brokers = vec!["localhost:9042".to_string()];
 
-    let kafka_config = KafkaConfig::new(topic_name, brokers)
+    let kafka_config = KafkaConfigBuilder::new(topic_name, brokers)
         .ack_timeout_seconds(23)
         .build();
 
@@ -21,7 +21,4 @@ fn main() {
     };
 
     producer.send(record);
-
-    // Destroy ??
-    // Manual or on impl Drop?
 }

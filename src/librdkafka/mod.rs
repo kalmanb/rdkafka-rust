@@ -1,3 +1,4 @@
+#[allow(non_camel_case_types)]
 use libc::{c_char, c_int, c_void, int32_t, size_t};
 pub mod errors;
 use self::errors::rd_kafka_resp_err_t;
