@@ -1,7 +1,9 @@
 #![allow(non_camel_case_types)]
+extern crate libc;
+
+pub mod errors;
 
 use libc::{c_char, c_int, c_void, int32_t, size_t};
-pub mod errors;
 use self::errors::rd_kafka_resp_err_t;
 
 
@@ -210,3 +212,4 @@ pub enum rd_kafka_secproto_t {
     RD_KAFKA_PROTO_SASL_SSL,
     RD_KAFKA_PROTO_NUM,
 }
+

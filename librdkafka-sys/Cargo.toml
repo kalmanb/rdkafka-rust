@@ -1,0 +1,22 @@
+[package]
+
+name = "librdkafka-sys"
+version = "0.9.2-37c2d08"
+authors = ["Kalman Bekesi <kalmanbekesi@gmail.com>"]
+links = "librdkafka"
+build = "build.rs"
+license = "MIT"
+repository = "https://github.com/kalmanb/rdkafka-rust"
+description = """
+Bindings to librdkafka
+"""
+
+[lib]
+name = "librdkafka_sys"
+path = "lib.rs"
+
+[dependencies]
+libc = "0.2"
+
+[build-dependencies]
+gcc = "0.3"

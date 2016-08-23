@@ -1,0 +1,18 @@
+[root]
+name = "librdkafka-sys"
+version = "0.9.2-37c2d08"
+dependencies = [
+ "gcc 0.3.32 (registry+https://github.com/rust-lang/crates.io-index)",
+ "libc 0.2.15 (registry+https://github.com/rust-lang/crates.io-index)",
+]
+
+[[package]]
+name = "gcc"
+version = "0.3.32"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+
+[[package]]
+name = "libc"
+version = "0.2.15"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+
